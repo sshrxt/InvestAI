@@ -25,6 +25,7 @@ const config: Config = {
           200: "rgba(17, 25, 40, 0.75)",
           300: "rgba(255, 255, 255, 0.125)",
           400: "#050301",
+          500: "#060606",
         },
         white: {
           DEFAULT: "#FFF",
@@ -70,6 +71,12 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+    },
+    screens: {
+      sm: '640px', // Small screens and up
+      md: '768px', // Medium screens and up
+      lg: '1424px', // Large screens and up
+      xl: '1280px', // Extra large screens and up
     },
   },
   plugins: [],
