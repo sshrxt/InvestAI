@@ -17,7 +17,7 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 
-export function SignupFormDemo() {
+export const Form = ({setFormData}: {setFormData: any}) => {
   const [deposit, setDeposit] = useState<number | string>("");
   const [contribution, setContribution] = useState<number | string>("");
   const [selectedFrequency, setSelectedFrequency] = useState<string | null>(
@@ -49,7 +49,7 @@ export function SignupFormDemo() {
       rate,
       compound,
     };
-    // Pass formData to your submission logic
+    setFormData(formData)
     console.log('Form submitted with data:', formData);
   };
 

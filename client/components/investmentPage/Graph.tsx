@@ -2,6 +2,7 @@
 
 import React from "react";
 import { chartData } from "@/data";
+import { ConvertedDataType } from "./InvestmentPage";
 
 import {
   Area,
@@ -56,12 +57,13 @@ const data = [
   },
 ];
 
-const Graph = () => {
+const Graph = ({formData}: {formData:ConvertedDataType[] }) => {
+  console.log(chartData)
   return (
     <div className=" flex justify-center items-center h-full w-full">
         <ResponsiveContainer height="95%" width="90%">
   <AreaChart
-    data={chartData}
+    data={formData}
     margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
   >
     <defs>
