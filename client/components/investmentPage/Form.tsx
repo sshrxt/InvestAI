@@ -25,6 +25,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
   );
   const [growthYears, setGrowthYears] = useState<number | string>("");
   const [rate, setRate] = useState<number | string>("");
+  const [investmentType, setInvestmentType] = useState<number | string>("");
   const [compound, setCompound] = useState<string>("Monthly");
 
 
@@ -48,6 +49,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
       growthYears,
       rate,
       compound,
+      investmentType,
     };
     setFormData(formData)
     console.log('Form submitted with data:', formData);
@@ -117,6 +119,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
           </div>
         </LabelInputContainer>
       </div>
+      
       <LabelInputContainer className="mb-4">
         <Label htmlFor="growth">Years of Growth</Label>
         <div className="flex items-center">
@@ -155,11 +158,23 @@ export const Form = ({setFormData}: {setFormData: any}) => {
           </div>
         </div>
       </LabelInputContainer>
+      <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4 gap-2">
+        <LabelInputContainer>
+          <Label htmlFor="type">Type of Investment</Label>
+          <Input
+            id="type"
+            value={investmentType}
+            onChange={(e) => setInvestmentType(e.target.value)}
+            placeholder="Real Estate"
+            type="text"
+            required
+          />
+        </LabelInputContainer>
       <LabelInputContainer>
-        <Label htmlFor="dropdown">Select Option</Label>
+        <Label htmlFor="dropdown">Select Compound</Label>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="w-full flex flex-row items-center justify-between bg-zinc-800 rounded-lg h-8 p-6">
+            <div className=" flex flex-row items-center justify-between bg-zinc-800 rounded-lg h-[2.6rem] p-5">
               {compound}
               <IoIosArrowDropdown />
             </div>
@@ -196,8 +211,9 @@ export const Form = ({setFormData}: {setFormData: any}) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </LabelInputContainer>
+      </div>
       <button
-        className="bg-gradient-to-br mt-5 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+        className="bg-gradient-to-br mt-2 relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
         type="submit"
       >
         Submit &rarr;
