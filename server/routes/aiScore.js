@@ -22,7 +22,7 @@ router.use(`/`, async (req, res) => {
             Cutting Knowledge Date: December 2023
             Today Date: 8 August 2024
 
-            I am about to provide you with an invesmtent and its details including what type of investment it is. Please give me a score only (0-100) based on factors such as the type of investment which is important for market analysis and investment details such as profit returns rate etc<|eot_id|><|start_header_id|>user<|end_header_id|>
+            I am about to provide you with an invesmtent and its details including what type of investment it is. Please give me a score ONLY NO EXPLANATION (0-100) based on factors such as the type of investment which is important for market analysis and investment details such as profit returns rate etc. The return rate and investment type is really important so make sure the type and the rate make up a good portion of the score. Please consider all factors including historical trends and make sure to equally value the details with the type.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
             ${searchQuery}<|eot_id|><|start_header_id|>assistant<|end_header_id|>`,
         parameters: {
