@@ -6,6 +6,8 @@ import { ReceiptPoundSterling } from "lucide-react";
 import { chartData } from "@/data";
 import AiSummary from "./AiSummary";
 import AiScore from "./AiScore";
+import Stat from "../ui/Stat";
+import GraphSummary from "./GraphSummary";
 
 type FormDataType = {
   deposit: string;
@@ -35,23 +37,34 @@ const InvestmentPage = () => {
   const [formData, setFormData] = useState<FormDataType>();
   const [graphData, setGraphData] = useState<ConvertedDataType[]>(chartData);
   const [aiQuery, setAiQuery] = useState<string | null>(null);
+  const [profit, setProfit] = useState<number>(0)
+  const [profitRate, setProfitRate] = useState<number>(0.0)
+  const [totalDeposit, setTotalDeposit] = useState<number>(0)
+  const [finalValue, setFinalValue] = useState<number> (0);
 
   useEffect(() => {
     if (formData) {
       const converted = convertData(formData);
       setGraphData(converted);
       let contributionFrequency = formData.selectedFrequency === "Monthly" ? 12 : 1
+
       let contributions = ((parseFloat(formData.contribution) * contributionFrequency)) * parseFloat(formData.growthYears)
-      let profit =
-        calculateFutureValue(
-          parseFloat(formData.deposit),
-          parseFloat(formData.rate) / 100,
-          getCompound(formData.compound),
-          parseFloat(formData.growthYears),
-          parseFloat(formData.contribution),
-          formData.selectedFrequency === "Monthly" ? 12 : 1
-        ) - parseFloat(formData.deposit) - contributions;
-      let currAiQuery = `The investment type was ${formData?.investmentType}, intial deposit was ${formData?.deposit}, the rate of return is ${formData?.rate} which compounds ${formData?.compound} and is left for ${formData?.growthYears} years. The user contributes ${formData.contribution} dollars ${formData.selectedFrequency} into their investment. Over ${formData?.growthYears} years the total profit was ${profit} `;
+      setTotalDeposit(contributions)
+
+      let totalValue = calculateFutureValue(
+        parseFloat(formData.deposit),
+        parseFloat(formData.rate) / 100,
+        getCompound(formData.compound),
+        parseFloat(formData.growthYears),
+        parseFloat(formData.contribution),
+        formData.selectedFrequency === "Monthly" ? 12 : 1
+      );
+      setFinalValue(totalValue)
+
+      let currProfit = totalValue - parseFloat(formData.deposit) - contributions;
+      setProfit(currProfit);
+      setProfitRate((currProfit / totalValue))
+      let currAiQuery = `The investment type was ${formData?.investmentType}, intial deposit was ${formData?.deposit}, the rate of return is ${formData?.rate} which compounds ${formData?.compound} and is left for ${formData?.growthYears} years. The user contributes ${formData.contribution} dollars ${formData.selectedFrequency} into their investment. Over ${formData?.growthYears} years the total profit was ${currProfit} `;
       console.log(currAiQuery)
       setAiQuery(currAiQuery);
     }
@@ -68,11 +81,11 @@ const InvestmentPage = () => {
           {" "}
           <Graph formData={graphData} />{" "}
         </div>
-        <div className="bg-black-500 row-start-1 row-end-3 flex items-center justify-center text-white">
+        <div className="bg-black-500 row-start-1 row-end-3 flex items-center justify-center text-white overflow-x-hidden">
           <AiScore aiQuery={aiQuery}/>
         </div>
-        <div className="bg-black-500 row-start-3 row-end-6 flex justify-center">
-          <div className="mt-5"></div>
+        <div className="bg-black-500 row-start-3 row-end-6 flex justify-start overflow-x-auto">
+          <GraphSummary profit={profit} profitRate={profitRate} totalDeposit={totalDeposit} finalValue={finalValue}/>
         </div>
         <div className="bg-black-500 row-start-6 row-end-10 col-span-4"></div>
         <div className="bg-black-500 row-start-6 row-end-10 col-span-5 overflow-y-auto ">

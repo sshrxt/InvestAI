@@ -19,7 +19,7 @@ const AiScore = ({aiQuery}: {aiQuery: string | null}) => {
           }
 
           const data = await response.json();
-          console.log(extractNumberFromScoreString(data.data.generated_text))
+          console.log(data.data.generated_text)
           setScore(extractNumberFromScoreString(data.data.generated_text));
         } catch (err) {
           console.log(err)
@@ -36,12 +36,12 @@ const AiScore = ({aiQuery}: {aiQuery: string | null}) => {
   }, [aiQuery])
 
   return (
-    <Card className="h-full w-full border-none bg-gradient-to-br from-black-500 to-black-500 rounded-none">
-      <CardBody className="flex justify-center items-center pb-0">
+    <Card className="h-full w-full border-none bg-gradient-to-br from-black-500 to-black-500 rounded-none overflow-hidden">
+      <CardBody className="flex justify-center items-center pb-0 overflow-x-hidden">
         <CircularProgress
           aria-label="AI Score Progress"
           classNames={{
-            svg: "w-48 h-48 drop-shadow-md", // Increase size of the circle
+            svg: "w-48 h-48 lg:w-40 lg:h-40 drop-shadow-md", // Increase size of the circle
             indicator: "stroke-green",
             track: "stroke-white/10",
             value: "text-5xl font-semibold text-white", // Increase font size of the number
@@ -52,7 +52,7 @@ const AiScore = ({aiQuery}: {aiQuery: string | null}) => {
           showValueLabel={true}
         />
       </CardBody>
-      <CardFooter className="flex justify-center items-center pt-0">
+      <CardFooter className="flex justify-center items-center pt-0 overflow-x-hidden">
         <Chip
           classNames={{
             base: "border-1 border-white/30",

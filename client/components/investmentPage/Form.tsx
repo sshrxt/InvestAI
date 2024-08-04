@@ -59,7 +59,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
   const isSelected = (frequency: string) => selectedFrequency === frequency;
 
   return (
-    <div className="p-4 md:p-8 mt-4 ">
+    <div className="p-4 md:p-8">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to InvestAI
       </h2>
