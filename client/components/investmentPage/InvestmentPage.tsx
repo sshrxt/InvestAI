@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { ReceiptPoundSterling } from "lucide-react";
 import { chartData } from "@/data";
 import AiSummary from "./AiSummary";
+import AiScore from "./AiScore";
 
 type FormDataType = {
   deposit: string;
@@ -22,7 +23,7 @@ export type ConvertedDataType = {
 };
 
 const data: FormDataType = {
-  deposit: "200",
+  deposit: "500",
   growthYears: "3",
   rate: "5",
   compound: "Monthly",
@@ -59,20 +60,22 @@ const InvestmentPage = () => {
   return (
     <div className="p-2">
       <div className="h-screen grid grid-cols-9 grid-rows-9 gap-3 overflow-hidden">
-        <div className="bg-black-200 col-span-3 row-start-1 row-end-6">
+        <div className="bg-black-500 col-span-3 row-start-1 row-end-6">
           {" "}
           <Form setFormData={setFormData} />
         </div>
-        <div className="bg-black-200 col-span-5 row-start-1 row-end-6">
+        <div className="bg-black-500 col-span-5 row-start-1 row-end-6">
           {" "}
           <Graph formData={graphData} />{" "}
         </div>
-        <div className="bg-black-200 row-start-1 row-end-3 flex items-center justify-center text-white"></div>
-        <div className="bg-black-200 row-start-3 row-end-6 flex justify-center">
+        <div className="bg-black-500 row-start-1 row-end-3 flex items-center justify-center text-white">
+          <AiScore aiQuery={aiQuery}/>
+        </div>
+        <div className="bg-black-500 row-start-3 row-end-6 flex justify-center">
           <div className="mt-5"></div>
         </div>
-        <div className="bg-black-200 row-start-6 row-end-10 col-span-4"></div>
-        <div className="bg-black-200 row-start-6 row-end-10 col-span-5 overflow-y-auto ">
+        <div className="bg-black-500 row-start-6 row-end-10 col-span-4"></div>
+        <div className="bg-black-500 row-start-6 row-end-10 col-span-5 overflow-y-auto ">
           <AiSummary aiQuery={aiQuery} />
         </div>
       </div>

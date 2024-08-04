@@ -7,7 +7,8 @@ const AiSummary = ({ aiQuery }: { aiQuery: string | null }) => {
   const [error, setError] = useState<string | null>(null);
   const [hasDisplayedTitle, setHasDisplayedTitle] = useState<boolean>(false);
 
-  const title = "Your personalized AI financial assistant will provide insight once you enter investment details!";
+  const title =
+    "Enter Investment details for Personalized AI Financial Insights!";
 
   useEffect(() => {
     const fetchAiInsight = async () => {
@@ -47,7 +48,9 @@ const AiSummary = ({ aiQuery }: { aiQuery: string | null }) => {
   return (
     <div className="flex flex-col items-center justify-start h-full w-[90%] mx-auto p-6 lg:text-xl">
       {!hasDisplayedTitle ? (
-        <div className="heading">{title}</div>
+        <div className="heading font-medium">
+          <AiGenerateText words={title} />
+        </div>
       ) : loading ? (
         <div className="heading">Loading...</div>
       ) : aiInsight ? (

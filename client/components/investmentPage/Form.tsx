@@ -21,7 +21,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
   const [deposit, setDeposit] = useState<number | string>("");
   const [contribution, setContribution] = useState<number | string>("");
   const [selectedFrequency, setSelectedFrequency] = useState<string | null>(
-    null
+    "Monthly"
   );
   const [growthYears, setGrowthYears] = useState<number | string>("");
   const [rate, setRate] = useState<number | string>("");
