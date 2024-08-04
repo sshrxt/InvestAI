@@ -5,6 +5,11 @@ import cors from "cors";
 const router = express.Router();
 
 router.use(`/`, async (req, res) => {
+  const searchQuery = req.query.search;
+  if (!searchQuery) {
+    return res.status(400).json({ msg: "Query is required" });
+  }
+
   try {
     const response = await fetch("https://arcade.evl.uic.edu/llama/generate", {
       method: "POST",
@@ -12,22 +17,21 @@ router.use(`/`, async (req, res) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        inputs:
-          `<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+        inputs: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
             Cutting Knowledge Date: December 2023
-            Today Date: 23 Jul 2024
+            Today Date: 8 August 2024
 
-            You are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>
+            I am about to provide you with an invesmtent and its details including what type of investment it is. Please give me a response that explains whether this investment is good considering the investment type the user declares and other stuff like total profit and etc. <|eot_id|><|start_header_id|>user<|end_header_id|>
 
-            What is the capital for France?<|eot_id|><|start_header_id|>assistant<|end_header_id|>`,
+            ${searchQuery}<|eot_id|><|start_header_id|>assistant<|end_header_id|>`,
         parameters: {
-          max_new_tokens: 200,
+          max_new_tokens: 1000,
           stop: [
             "<|start_header_id|>",
             "<|end_header_id|>",
             "<|eot_id|>",
-            "<|reserved_special_token>"
+            "<|reserved_special_token>",
           ],
         },
       }),
@@ -38,7 +42,7 @@ router.use(`/`, async (req, res) => {
     }
 
     const data = await response.json();
-    res.json({data: data})
+    res.json({ data: data });
   } catch (error) {
     console.error("Fetch error:", error);
   }
