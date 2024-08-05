@@ -8,6 +8,8 @@ import AiSummary from "./AiSummary";
 import AiScore from "./AiScore";
 import Stat from "../ui/Stat";
 import GraphSummary from "./GraphSummary";
+import NewsBox from "./NewsBox";
+import NewsCard from "./NewsCard";
 
 type FormDataType = {
   deposit: string;
@@ -16,7 +18,7 @@ type FormDataType = {
   growthYears: string;
   rate: string;
   compound: string;
-  investmentType?: string;
+  investmentType: string;
 };
 
 export type ConvertedDataType = {
@@ -30,7 +32,8 @@ const data: FormDataType = {
   rate: "5",
   compound: "Monthly",
   contribution: "50",
-  selectedFrequency: "Monthly"
+  selectedFrequency: "Monthly",
+  investmentType: "",
 };
 
 const InvestmentPage = () => {
@@ -38,18 +41,20 @@ const InvestmentPage = () => {
   const [graphData, setGraphData] = useState<ConvertedDataType[]>(chartData);
   const [aiQuery, setAiQuery] = useState<string | null>(null);
   const [profit, setProfit] = useState<number>(0)
-  const [profitRate, setProfitRate] = useState<number>(0.0)
+  const [profitRate, setProfitRate] = useState<number>(0)
   const [totalDeposit, setTotalDeposit] = useState<number>(0)
   const [finalValue, setFinalValue] = useState<number> (0);
+  const [investment, setInvestment] = useState("");
 
   useEffect(() => {
     if (formData) {
+      setInvestment(formData.investmentType)
       const converted = convertData(formData);
       setGraphData(converted);
       let contributionFrequency = formData.selectedFrequency === "Monthly" ? 12 : 1
 
       let contributions = ((parseFloat(formData.contribution) * contributionFrequency)) * parseFloat(formData.growthYears)
-      setTotalDeposit(contributions)
+      setTotalDeposit(contributions + parseFloat(formData.deposit))
 
       let totalValue = calculateFutureValue(
         parseFloat(formData.deposit),
@@ -73,7 +78,7 @@ const InvestmentPage = () => {
   return (
     <div className="p-2">
       <div className="h-screen grid grid-cols-9 grid-rows-9 gap-3 overflow-hidden">
-        <div className="bg-black-500 col-span-3 row-start-1 row-end-6">
+        <div className="bg-black-500 col-span-3 row-start-1 row-end-6 overflow-y-auto">
           {" "}
           <Form setFormData={setFormData} />
         </div>
@@ -81,13 +86,15 @@ const InvestmentPage = () => {
           {" "}
           <Graph formData={graphData} />{" "}
         </div>
-        <div className="bg-black-500 row-start-1 row-end-3 flex items-center justify-center text-white overflow-x-hidden">
+        <div className="bg-black-500 row-start-1 row-end-3 flex items-center justify-center text-white overflow-hidden">
           <AiScore aiQuery={aiQuery}/>
         </div>
         <div className="bg-black-500 row-start-3 row-end-6 flex justify-start overflow-x-auto">
           <GraphSummary profit={profit} profitRate={profitRate} totalDeposit={totalDeposit} finalValue={finalValue}/>
         </div>
-        <div className="bg-black-500 row-start-6 row-end-10 col-span-4"></div>
+        <div className="bg-black-500 row-start-6 row-end-10 col-span-4 overflow-y-auto">
+          <NewsBox investmentType={investment}/>
+        </div>
         <div className="bg-black-500 row-start-6 row-end-10 col-span-5 overflow-y-auto ">
           <AiSummary aiQuery={aiQuery} />
         </div>

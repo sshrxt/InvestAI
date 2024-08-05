@@ -41,7 +41,7 @@ const AiScore = ({aiQuery}: {aiQuery: string | null}) => {
         <CircularProgress
           aria-label="AI Score Progress"
           classNames={{
-            svg: "w-48 h-48 lg:w-40 lg:h-40 drop-shadow-md", // Increase size of the circle
+            svg: "w-36 h-36 drop-shadow-md", // Increase size of the circle
             indicator: "stroke-green",
             track: "stroke-white/10",
             value: "text-5xl font-semibold text-white", // Increase font size of the number

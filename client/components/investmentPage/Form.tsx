@@ -67,7 +67,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
         Input your investment details below
       </p>
 
-      <form className="my-8 flex flex-col gap-1" onSubmit={handleSubmit}>
+      <form className="my-4 flex flex-col gap-1" onSubmit={handleSubmit}>
       <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
         <LabelInputContainer>
           <Label htmlFor="deposit">Initial deposit</Label>
@@ -179,7 +179,7 @@ export const Form = ({setFormData}: {setFormData: any}) => {
               <IoIosArrowDropdown />
             </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[25vw] mt-1 text-lg bg-black-200">
+          <DropdownMenuContent className="w-[15vw] mt-1 text-lg bg-black-200">
             <DropdownMenuLabel className="text-[1.5rem] md:text-[1rem] lg:text-xl">
               Select Your Mode
             </DropdownMenuLabel>

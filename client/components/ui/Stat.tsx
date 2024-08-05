@@ -3,7 +3,7 @@ import { RxTriangleUp, RxTriangleDown } from "react-icons/rx";
 
 const Stat = ({title, description, percent}: {title: string, description: string, percent: number}) => {
   return (
-    <div className='ml-5 overflow-x-auto'>
+    <div className='ml-5 overflow-hidden'>
       <div className="text-sm">
         {title}
       </div>

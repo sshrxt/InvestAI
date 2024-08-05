@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiGenerateText } from "../ui/AiGenerateText";
+import { CircularProgress } from "@nextui-org/react";
+import Markdown from 'markdown-to-jsx'
 
 const AiSummary = ({ aiQuery }: { aiQuery: string | null }) => {
   const [aiInsight, setAiInsight] = useState<string | null>(null);
@@ -46,13 +48,13 @@ const AiSummary = ({ aiQuery }: { aiQuery: string | null }) => {
   }, [aiQuery]);
 
   return (
-    <div className="flex flex-col items-center justify-start h-full w-[90%] mx-auto p-6 lg:text-xl">
+    <div className="flex flex-col items-center justify-start h-full w-[90%] mx-auto p-6 pt-2 lg:text-xl">
       {!hasDisplayedTitle ? (
         <div className="heading font-medium">
           <AiGenerateText words={title} />
         </div>
       ) : loading ? (
-        <div className="heading">Loading...</div>
+        <CircularProgress size="lg" aria-label="Loading..."/>
       ) : aiInsight ? (
         <AiGenerateText words={aiInsight} />
       ) : (
